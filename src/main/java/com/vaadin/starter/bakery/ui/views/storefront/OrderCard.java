@@ -29,9 +29,9 @@ public class OrderCard {
 	public static LitRenderer<Order> getTemplate() {
 		return LitRenderer.of(
 				  "<order-card"
-				+ "  header='[[item.header]]'"
-				+ "  order-card='[[item.orderCard]]'"
-				+ "  on-card-click='cardClick'>"
+				+ "  .header='${item.header}'"
+				+ "  .orderCard='${item.orderCard}'"
+				+ "  @card-click='${cardClick}'>"
 				+ "</order-card>");
 	}
 	

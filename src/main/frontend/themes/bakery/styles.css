@@ -1,79 +1,3 @@
-*,
-*::before,
-*::after,
-::slotted(*) {
-    box-sizing: border-box;
-}
-
-:host([hidden]),
-[hidden] {
-    display: none !important;
-}
-
-h2,
-h3 {
-    margin-top: var(--lumo-space-m);
-    margin-bottom: var(--lumo-space-s);
-}
-
-h2 {
-    font-size: var(--lumo-font-size-xxl);
-}
-
-h3 {
-    font-size: var(--lumo-font-size-xl);
-}
-
-.scrollable {
-    padding: var(--lumo-space-m);
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-}
-
-.count {
-    display: inline-block;
-    background: var(--lumo-shade-10pct);
-    border-radius: var(--lumo-border-radius);
-    font-size: var(--lumo-font-size-s);
-    padding: 0 var(--lumo-space-s);
-    text-align: center;
-}
-
-.total {
-    padding: 0 var(--lumo-space-s);
-    font-size: var(--lumo-font-size-l);
-    font-weight: bold;
-    white-space: nowrap;
-}
-
-@media (min-width: 600px) {
-    .total {
-        min-width: 0;
-        order: 0;
-        padding: 0 var(--lumo-space-l);
-    }
-}
-
-.flex {
-    display: flex;
-}
-
-.flex1 {
-    flex: 1 1 auto;
-}
-
-.bold {
-    font-weight: 600;
-}
-
-flow-component-renderer[theme="dialog"],
-flow-component-renderer[theme="dialog"] > div {
-    display: flex;
-    flex-direction: column;
-    flex: auto;
-    height: 100%;
-}
-
 @keyframes v-progress-start {
     0% {
         width: 0%;
@@ -142,7 +66,7 @@ flow-component-renderer[theme="dialog"] > div {
     animation: v-progress-start 1000ms 200ms both;
 }
 
-.v-loading-indicator[style*="none"] {
+.v-loading-indicator[style*='none'] {
     display: block !important;
     width: 100% !important;
     opacity: 0;
@@ -152,8 +76,9 @@ flow-component-renderer[theme="dialog"] > div {
 
 vaadin-app-layout vaadin-tab {
     font-size: var(--lumo-font-size-xs);
-    padding-left: .75em;
-    padding-right: .75em;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    cursor: pointer;
 }
 
 vaadin-app-layout vaadin-tab a:hover {
@@ -164,11 +89,11 @@ vaadin-app-layout vaadin-tab:not([selected]) a {
     color: var(--lumo-contrast-60pct);
 }
 
-vaadin-app-layout vaadin-tab iron-icon {
+vaadin-app-layout vaadin-tab vaadin-icon {
     margin: 0 4px;
     width: var(--lumo-icon-size-m);
     height: var(--lumo-icon-size-m);
-    padding: .25rem;
+    padding: 0.25rem;
     box-sizing: border-box !important;
 }
 
