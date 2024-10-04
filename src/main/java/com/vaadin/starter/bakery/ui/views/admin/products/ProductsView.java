@@ -16,8 +16,8 @@ import com.vaadin.starter.bakery.ui.MainView;
 import com.vaadin.starter.bakery.ui.crud.AbstractBakeryCrudView;
 import com.vaadin.starter.bakery.ui.utils.BakeryConst;
 import com.vaadin.starter.bakery.ui.utils.converters.CurrencyFormatter;
+import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 
 import java.util.Currency;
 
@@ -25,7 +25,7 @@ import static com.vaadin.starter.bakery.ui.utils.BakeryConst.PAGE_PRODUCTS;
 
 @Route(value = PAGE_PRODUCTS, layout = MainView.class)
 @PageTitle(BakeryConst.TITLE_PRODUCTS)
-@Secured(Role.ADMIN)
+@RolesAllowed(Role.ADMIN)
 public class ProductsView extends AbstractBakeryCrudView<Product> {
 
 	private CurrencyFormatter currencyFormatter = new CurrencyFormatter();
@@ -60,7 +60,6 @@ public class ProductsView extends AbstractBakeryCrudView<Product> {
 
 		binder.forField(price).withConverter(new PriceConverter()).bind("price");
 		price.setPattern("\\d+(\\.\\d?\\d?)?$");
-		price.setPreventInvalidInput(true);
 
 		String currencySymbol = Currency.getInstance(BakeryConst.APP_LOCALE).getSymbol();
 		price.setPrefixComponent(new Span(currencySymbol));

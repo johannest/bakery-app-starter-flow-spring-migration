@@ -121,7 +121,7 @@ public class OrderEditor extends PolymerTemplate<OrderEditor.Model> {
 		review.addClickListener(e -> fireEvent(new ReviewEvent(this)));
 
 		status.setItemLabelGenerator(createItemLabelGenerator(OrderState::getDisplayName));
-		status.setDataProvider(DataProvider.ofItems(OrderState.values()));
+		status.setItems(DataProvider.ofItems(OrderState.values()));
 		status.addValueChangeListener(
 				e -> getModel().setStatus(DataProviderUtil.convertIfNotNull(e.getValue(), OrderState::name)));
 		binder.forField(status)
@@ -140,7 +140,7 @@ public class OrderEditor extends PolymerTemplate<OrderEditor.Model> {
 		binder.bind(dueTime, "dueTime");
 
 		pickupLocation.setItemLabelGenerator(createItemLabelGenerator(PickupLocation::getName));
-		pickupLocation.setDataProvider(locationDataProvider);
+		pickupLocation.setItems(locationDataProvider);
 		binder.bind(pickupLocation, "pickupLocation");
 		pickupLocation.setRequired(false);
 
