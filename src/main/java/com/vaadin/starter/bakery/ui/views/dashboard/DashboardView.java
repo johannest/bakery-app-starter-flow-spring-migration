@@ -9,6 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.flow.component.ComponentEventListener;
@@ -50,6 +51,7 @@ import com.vaadin.starter.bakery.ui.views.storefront.beans.OrdersCountDataWithCh
 @JsModule("./src/views/dashboard/dashboard-view.js")
 @Route(value = BakeryConst.PAGE_DASHBOARD, layout = MainView.class)
 @PageTitle(BakeryConst.TITLE_DASHBOARD)
+@PermitAll
 public class DashboardView extends PolymerTemplate<TemplateModel> {
 
 	private static final String[] MONTH_LABELS = new String[] {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
@@ -94,7 +96,7 @@ public class DashboardView extends PolymerTemplate<TemplateModel> {
 		grid.addColumn(OrderCard.getTemplate()
 				.withProperty("orderCard", OrderCard::create)
 				.withProperty("header", order -> null)
-				.withEventHandler("cardClick",
+				.withFunction("cardClick",
 						order -> UI.getCurrent().navigate(BakeryConst.PAGE_STOREFRONT + "/" + order.getId())));
 
 		grid.setSelectionMode(Grid.SelectionMode.NONE);
@@ -117,7 +119,7 @@ public class DashboardView extends PolymerTemplate<TemplateModel> {
 		ComponentEventListener<ChartLoadEvent> chartLoadListener = (event) -> {
 			nLoaded.addAndGet(1);
 			if (nLoaded.get() == nTotal) {
-				UI.getCurrent().getPage().executeJavaScript("$0._chartsLoadedResolve()", this);
+				UI.getCurrent().getPage().executeJs("$0._chartsLoadedResolve()", this);
 			}
 		};
 
@@ -135,6 +137,7 @@ public class DashboardView extends PolymerTemplate<TemplateModel> {
 		Configuration conf = monthlyProductSplit.getConfiguration();
 		conf.getChart().setType(ChartType.PIE);
 		conf.getChart().setBorderRadius(4);
+		conf.getChart().setStyledMode(true);
 		conf.setTitle("Products delivered in " + FormattingUtils.getFullMonthName(today));
 		DataSeries deliveriesPerProductSeries = new DataSeries(productDeliveries.entrySet().stream()
 				.map(e -> new DataSeriesItem(e.getKey().getName(), e.getValue())).collect(Collectors.toList()));
@@ -162,6 +165,7 @@ public class DashboardView extends PolymerTemplate<TemplateModel> {
 	private void initTodayCountSolidgaugeChart(OrdersCountDataWithChart data) {
 		Configuration configuration = todayCountChart.getConfiguration();
 		configuration.getChart().setType(ChartType.SOLIDGAUGE);
+		configuration.getChart().setStyledMode(true);
 		configuration.setTitle("");
 		configuration.getTooltip().setEnabled(false);
 
@@ -200,6 +204,7 @@ public class DashboardView extends PolymerTemplate<TemplateModel> {
 		yearConf.setTitle("Deliveries in " + today.getYear());
 		yearConf.getxAxis().setCategories(MONTH_LABELS);
 		yearConf.addSeries(new ListSeries("per Month", data.getDeliveriesThisYear()));
+		yearConf.getChart().setStyledMode(true);
 
 		// init the 'Deliveries in [this month]' chart
 		Configuration monthConf = deliveriesThisMonthChart.getConfiguration();
@@ -217,6 +222,7 @@ public class DashboardView extends PolymerTemplate<TemplateModel> {
 	private void configureColumnChart(Configuration conf) {
 		conf.getChart().setType(ChartType.COLUMN);
 		conf.getChart().setBorderRadius(4);
+		conf.getChart().setStyledMode(true);
 
 		conf.getxAxis().setTickInterval(1);
 		conf.getxAxis().setMinorTickLength(0);
@@ -231,6 +237,7 @@ public class DashboardView extends PolymerTemplate<TemplateModel> {
 		Configuration conf = yearlySalesGraph.getConfiguration();
 		conf.getChart().setType(ChartType.AREASPLINE);
 		conf.getChart().setBorderRadius(4);
+		conf.getChart().setStyledMode(true);
 
 		conf.setTitle("Sales last years");
 

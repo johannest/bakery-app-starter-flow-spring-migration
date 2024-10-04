@@ -15,7 +15,7 @@ import com.vaadin.starter.bakery.backend.repositories.UserRepository;
 
 /**
  * Implements the {@link UserDetailsService}.
- * 
+ *
  * This implementation searches for {@link User} entities by the e-mail address
  * supplied in the login screen.
  */
@@ -37,7 +37,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	 * {@link org.springframework.security.core.userdetails.User}.
 	 *
 	 * @param username User's e-mail address
-	 * 
+	 *
 	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -46,7 +46,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			throw new UsernameNotFoundException("No user present with username: " + username);
 		} else {
 			return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPasswordHash(),
-					Collections.singletonList(new SimpleGrantedAuthority(user.getRole())));
+					Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getRole())));
 		}
 	}
 }
