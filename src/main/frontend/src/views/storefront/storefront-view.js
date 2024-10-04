@@ -1,10 +1,10 @@
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-import '@vaadin/vaadin-grid/src/vaadin-grid.js';
-import '@vaadin/vaadin-dialog/src/vaadin-dialog.js';
+import '@vaadin/grid/src/vaadin-grid.js';
+import '@vaadin/dialog/src/vaadin-dialog.js';
 import '../../components/search-bar.js';
 import '../../components/utils-mixin.js';
 import './order-card.js';
-import '../../../styles/shared-styles.js';
+import '../../../themes/bakery/shared-styles.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 class StorefrontView extends PolymerElement {
   static get template() {
